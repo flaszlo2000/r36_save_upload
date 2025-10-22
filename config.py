@@ -1,5 +1,6 @@
-from dataclasses import dataclass, field
-from json import JSONDecodeError, load as json_load
+from dataclasses import dataclass
+from json import JSONDecodeError
+from json import load as json_load
 from pathlib import Path
 from typing import Any, Final, Self
 
@@ -12,9 +13,10 @@ class ConfigModel:
     save_folder_path_str: str
     save_file_extension: str
 
-
     def __post_init__(self) -> None:
-        required_keys = filter(lambda k: not k.startswith("_"), self.__dataclass_fields__)
+        required_keys = filter(
+            lambda k: not k.startswith("_"), self.__dataclass_fields__
+        )
         for key in required_keys:
             required_value = self.__getattribute__(key)
             # XXX: this is going to become an issue if other types are introduced
@@ -33,8 +35,10 @@ class ConfigModel:
         all_required_keys_are_present = required_keys.issubset(given_keys)
         if not all_required_keys_are_present:
             missing = required_keys.difference(given_keys)
-    
-            raise RuntimeError(f"Not all required config parameters are present!\nMissing: {missing}")
+
+            raise RuntimeError(
+                f"Not all required config parameters are present!\nMissing: {missing}"
+            )
 
         cls_data = {required_key: data[required_key] for required_key in required_keys}
 
