@@ -1,0 +1,4 @@
+config.json
+.mypy_cache
+.git
+__pycache__
