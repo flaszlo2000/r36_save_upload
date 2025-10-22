@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from json import JSONDecodeError, load as json_load
 from pathlib import Path
 from typing import Any, Final, Self
@@ -9,7 +9,19 @@ DEFAULT_CONFIG_PATH: Final[Path] = Path("./config.json")
 @dataclass(frozen=True)
 class ConfigModel:
     webhook_url: str
-    roms_folder_url: str
+    save_folder_path_str: str
+    save_file_extension: str
+
+
+    def __post_init__(self) -> None:
+        required_keys = filter(lambda k: not k.startswith("_"), self.__dataclass_fields__)
+        for key in required_keys:
+            required_value = self.__getattribute__(key)
+            # XXX: this is going to become an issue if other types are introduced
+            assert isinstance(required_value, str)
+
+            if required_value is None or len(required_value) == 0:
+                raise AttributeError(f"Empty config parameter named {key}!")
 
     @classmethod
     def createFromParsedData(cls, data: dict[str, Any]) -> Self:
