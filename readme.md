@@ -12,7 +12,7 @@ How to add your own programs to the R36S: [dov's repo](https://github.com/dov/r3
 ```
 git clone https://github.com/flaszlo2000/r36_save_upload.git
 cd r36_save_upload
-touch config.json
+touch config.json # DONT FORGET TO FILL THIS WITH YOUR DATA
 python3 -m venv ./venv # optional but higly recommended
 source ./venv/bin/activate # only if you are using a venv
 pip3 install -r ./requirements.txt
@@ -51,6 +51,20 @@ Example configuration to sync the latest gb save on TF2:
     "save_file_extension": "srm"
 }
 ```
+
+
+## QoL
+To not put a lot of stuff into the native roms folder, I used a little wrapper script in `/roms2/native/` which content was:
+```
+#!/usr/bin/env python3
+from subprocess import run
+from os import chdir
+
+chdir("/home/ark/r36_save_upload")
+run(["python3", "main.py"])
+```
+After giving it run permission and restarted the console, I had one nice starter script that started the upload process.
+
 
 ## Additional info
 As for today's date (22.10.2025) the python version on the device is 3.7.5, be aware of this.
