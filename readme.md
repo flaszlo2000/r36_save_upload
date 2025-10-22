@@ -1,8 +1,7 @@
 # Simple file uploader for the R36S
 
 This little program was designed for the R36S console to share save files without removing the SD card.  
-This can help syncing saves between multiple devices.
-
+Out of the box it works with discord's webhooks which can help syncing saves between multiple devices.
 
 ## What does it do?
 It grabs the latest save file from a given folder and sends it to a webhook url.
