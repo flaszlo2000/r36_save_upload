@@ -2,7 +2,9 @@ from dataclasses import dataclass
 from json import JSONDecodeError
 from json import load as json_load
 from pathlib import Path
-from typing import Any, Final, Self
+from typing import Any, Dict
+
+from typing_extensions import Final, Self
 
 DEFAULT_CONFIG_PATH: Final[Path] = Path("./config.json")
 
@@ -26,7 +28,7 @@ class ConfigModel:
                 raise AttributeError(f"Empty config parameter named {key}!")
 
     @classmethod
-    def createFromParsedData(cls, data: dict[str, Any]) -> Self:
+    def createFromParsedData(cls, data: Dict[str, Any]) -> Self:
         required_keys = set(
             filter(lambda key: not key.startswith("_"), cls.__dataclass_fields__.keys())
         )
