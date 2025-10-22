@@ -13,7 +13,8 @@ How to add your own programs to the R36S: [dov's repo](https://github.com/dov/r3
 git clone https://github.com/flaszlo2000/r36_save_upload.git
 cd r36_save_upload
 touch config.json
-python3 -m venv ./venv
+python3 -m venv ./venv # optional but higly recommended
+source ./venv/bin/activate # only if you are using a venv
 pip3 install -r ./requirements.txt
 python3 ./main.py
 ```
